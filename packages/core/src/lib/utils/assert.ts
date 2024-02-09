@@ -131,9 +131,12 @@ export function assertConfig(
       (provider.type === "oauth" || provider.type === "oidc") &&
       !(provider.issuer ?? provider.options?.issuer)
     ) {
-      const { authorization: a, token: t, userinfo: u } = provider
 
-      let key
+      const a = provider.authorization ?? provider.options.authorization;
+      const t = provider.token ?? provider.options.token;
+      const u = provider.userinfo ?? provider.options.userinfo;
+      
+            let key
       if (typeof a !== "string" && !a?.url) key = "authorization"
       else if (typeof t !== "string" && !t?.url) key = "token"
       else if (typeof u !== "string" && !u?.url) key = "userinfo"
